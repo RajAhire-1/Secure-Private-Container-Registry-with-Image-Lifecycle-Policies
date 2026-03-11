@@ -1,0 +1,32 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPushPull",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::652259507779:user/devops-user"
+      },
+      "Action": [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:PutImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload"
+      ]
+    },
+    {
+      "Sid": "DenyUnauthorizedAccess",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "ecr:*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:PrincipalAccount": "652259507779"
+        }
+      }
+    }
+  ]
+}
